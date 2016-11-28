@@ -22,7 +22,7 @@ class Rental
         return $this->movie->determineAmount($this->daysRented);
     }
 
-    public function determineFrequentRenterPoints(): integer  {
+    public function determineFrequentRenterPoints(): int  {
         return $this->movie->determineFrequentRenterPoints($this->daysRented);
   }
 }

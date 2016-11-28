@@ -18,7 +18,7 @@ class RentalStatement {
     }
 
     public function addRental(Rental $rental) {
-        $rentals[] = $rental;
+        $this->rentals[] = $rental;
     }
 
     public function makeRentalStatement(): string {
@@ -43,7 +43,7 @@ class RentalStatement {
         $rentalLines = "";
 
         foreach ($this->rentals as $rental)
-            $rentalLines += $this->makeRentalLine($rental);
+            $rentalLines .= $this->makeRentalLine($rental);
 
         return $rentalLines;
     }
@@ -56,8 +56,8 @@ class RentalStatement {
         return $this->formatRentalLine($rental, $thisAmount);
     }
 
-    private function  formatRentalLine(Rental $rental, double $thisAmount): string {
-        return "\t" . $rental->getTitle() . "\t" . $thisAmount . "\n";
+    private function  formatRentalLine(Rental $rental, $thisAmount): string {
+        return "\t" . $rental->getTitle() . "\t" . number_format((float)$thisAmount, 1, '.', '') . "\n";
     }
 
     private function makeSummary(): string {
@@ -69,7 +69,7 @@ class RentalStatement {
         return $this->totalAmount;
     }
 
-    public function getFrequentRenterPoints(): integer {
+    public function getFrequentRenterPoints(): int {
         return $this->frequentRenterPoints;
     }
 }
