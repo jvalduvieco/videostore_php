@@ -1,67 +1,55 @@
 <?php
 namespace VideoStore;
 
+use VideoStore\RentalStatement\RentalStatementStringPrinter;
+
+/**
+ * @deprecated
+ * Adapter to use new code on legacy system
+ **/
 class RentalStatement {
     /**
-     * @var string
+     * @var \VideoStore\RentalStatement\RentalStatement
      */
-    private $name;
+    private $rentalStatement;
+
     /**
-     * @var Rental[]
+     * @var \VideoStore\RentalStatement\RentalStatementStringPrinter
      */
-    private $rentals = array();
-    private $amount;
-    private $frequentRenterPoints;
+    private $rentalStatementStringPrinter;
 
     public function __construct(string $customerName) {
-        $this->name = $customerName;
+        $this->rentalStatement = new RentalStatement\RentalStatement($customerName);
+        $this->rentalStatementStringPrinter = new RentalStatementStringPrinter();
+
     }
 
     public function addRental(Rental $rental) {
-        $this->rentals[] = $rental;
-        $this->amount += $rental->determineAmount();
-        $this->frequentRenterPoints += $rental->determineFrequentRenterPoints();
+        $this->rentalStatement->addRental($rental);
     }
 
     public function getAmountOwed() {
-        return $this->amount;
+        return $this->rentalStatement->getAmountOwed();
     }
 
     public function getName(): string {
-        return $this->name;
+        return $this->rentalStatement->getName();
     }
 
     public function getFrequentRenterPoints(): int {
-        return $this->frequentRenterPoints;
+        return $this->rentalStatement->getFrequentRenterPoints();
     }
 
-    public function makeRentalStatement(): string {
-        return $this->makeHeader() . $this->makeRentalLines() . $this->makeSummary();
+    /**
+     * @return Rental[]
+     */
+    public function getRentals()
+    {
+        return $this->rentalStatement->getRentals();
     }
 
-    private function makeHeader(): string  {
-        return "Rental Record for " . $this->getName() . "\n";
-    }
-
-    private function makeRentalLines(): string {
-        $rentalLines = "";
-
-        foreach ($this->rentals as $rental)
-            $rentalLines .= $this->makeRentalLine($rental);
-
-        return $rentalLines;
-    }
-
-    private function makeRentalLine(Rental $rental): string  {
-        return $this->formatRentalLine($rental, $rental->determineAmount());
-    }
-
-    private function  formatRentalLine(Rental $rental, $thisAmount): string {
-        return "\t" . $rental->getTitle() . "\t" . number_format((float)$thisAmount, 1, '.', '') . "\n";
-    }
-
-    private function makeSummary(): string {
-        return "You owed " . $this->amount . "\n"
-        ."You earned " . $this->frequentRenterPoints . " frequent renter points\n";
+    public function makeRentalStatement()
+    {
+        return $this->rentalStatementStringPrinter->makeRentalStatement($this->rentalStatement);
     }
 }

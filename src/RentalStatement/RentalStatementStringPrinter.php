@@ -1,0 +1,42 @@
+<?php
+namespace VideoStore\RentalStatement;
+
+use VideoStore\Rental;
+
+class RentalStatementStringPrinter
+{
+    public function makeRentalStatement(RentalStatement $rentalStatement): string
+    {
+        return
+            $this->makeHeader($rentalStatement) .
+            $this->makeRentalLines($rentalStatement) .
+            $this->makeSummary($rentalStatement);
+    }
+
+    private function makeHeader(RentalStatement $rentalStatement): string
+    {
+        return "Rental Record for " . $rentalStatement->getName() . "\n";
+    }
+
+    private function makeRentalLines(RentalStatement $rentalStatement): string
+    {
+        $rentalLines = "";
+
+        foreach ($rentalStatement->getrentals() as $rental)
+            $rentalLines .= $this->makeRentalLine($rental);
+
+        return $rentalLines;
+    }
+
+
+    private function makeRentalLine(Rental $rental): string
+    {
+        return "\t" . $rental->getTitle() . "\t" . number_format((float)$rental->determineAmount(), 1, '.', '') . "\n";
+    }
+
+    private function makeSummary(RentalStatement $rentalStatement): string
+    {
+        return "You owed " . $rentalStatement->getAmountOwed() . "\n"
+            . "You earned " . $rentalStatement->getFrequentRenterPoints() . " frequent renter points\n";
+    }
+}
