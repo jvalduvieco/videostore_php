@@ -10,7 +10,7 @@ class RentalStatement {
      * @var Rental[]
      */
     private $rentals = array();
-    private $totalAmount;
+    private $amount;
     private $frequentRenterPoints;
 
     public function __construct(string $customerName) {
@@ -19,24 +19,28 @@ class RentalStatement {
 
     public function addRental(Rental $rental) {
         $this->rentals[] = $rental;
+        $this->amount += $rental->determineAmount();
+        $this->frequentRenterPoints += $rental->determineFrequentRenterPoints();
     }
 
-    public function makeRentalStatement(): string {
-        $this->clearTotals();
-        return $this->makeHeader() . $this->makeRentalLines() . $this->makeSummary();
-    }
-
-    private function clearTotals() {
-        $this->totalAmount = 0;
-        $this->frequentRenterPoints = 0;
-    }
-
-    private function makeHeader(): string  {
-        return "Rental Record for " . $this->getName() . "\n";
+    public function getAmountOwed() {
+        return $this->amount;
     }
 
     public function getName(): string {
         return $this->name;
+    }
+
+    public function getFrequentRenterPoints(): int {
+        return $this->frequentRenterPoints;
+    }
+
+    public function makeRentalStatement(): string {
+        return $this->makeHeader() . $this->makeRentalLines() . $this->makeSummary();
+    }
+
+    private function makeHeader(): string  {
+        return "Rental Record for " . $this->getName() . "\n";
     }
 
     private function makeRentalLines(): string {
@@ -49,11 +53,7 @@ class RentalStatement {
     }
 
     private function makeRentalLine(Rental $rental): string  {
-        $thisAmount = $rental->determineAmount();
-        $this->frequentRenterPoints += $rental->determineFrequentRenterPoints();
-        $this->totalAmount += $thisAmount;
-
-        return $this->formatRentalLine($rental, $thisAmount);
+        return $this->formatRentalLine($rental, $rental->determineAmount());
     }
 
     private function  formatRentalLine(Rental $rental, $thisAmount): string {
@@ -61,15 +61,7 @@ class RentalStatement {
     }
 
     private function makeSummary(): string {
-        return "You owed " . $this->totalAmount . "\n"
+        return "You owed " . $this->amount . "\n"
         ."You earned " . $this->frequentRenterPoints . " frequent renter points\n";
-    }
-
-    public function getAmountOwed() {
-        return $this->totalAmount;
-    }
-
-    public function getFrequentRenterPoints(): int {
-        return $this->frequentRenterPoints;
     }
 }
