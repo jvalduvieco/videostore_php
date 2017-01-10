@@ -1,5 +1,5 @@
 <?php
-namespace VideoStore;
+namespace VideoStore\Movie;
 
 class NewReleaseMovie extends Movie {
     public function __constructor(string $title) {

@@ -1,6 +1,8 @@
 <?php
 namespace VideoStore;
 
+use VideoStore\Movie\Movie;
+
 class Rental
 {
     /**
@@ -24,5 +26,5 @@ class Rental
 
     public function determineFrequentRenterPoints(): int  {
         return $this->movie->determineFrequentRenterPoints($this->daysRented);
-  }
+    }
 }

@@ -1,10 +1,10 @@
 <?php
 namespace VideoStore\Tests\Unit\RentalStatement;
 
-use VideoStore\ChildrensMovie;
-use VideoStore\Movie;
-use VideoStore\NewReleaseMovie;
-use VideoStore\RegularMovie;
+use VideoStore\Movie\ChildrensMovie;
+use VideoStore\Movie\Movie;
+use VideoStore\Movie\NewReleaseMovie;
+use VideoStore\Movie\RegularMovie;
 use VideoStore\Rental;
 use VideoStore\RentalStatement\RentalStatement;
 use VideoStore\RentalStatement\RentalStatementStringPrinter;

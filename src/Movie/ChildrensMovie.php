@@ -1,5 +1,5 @@
 <?php
-namespace VideoStore;
+namespace VideoStore\Movie;
 
 class ChildrensMovie extends Movie
 {
