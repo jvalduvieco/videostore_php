@@ -11,14 +11,14 @@ class ChildrensMovie extends Movie
      */
     private $priceCalculator;
 
-    public function __constructor(string $title)
+    public function __construct(string $title)
     {
+        $this->priceCalculator = new FixedForNDaysProportionalLater(1.5, 3, 1.5);
         parent::__construct($title);
     }
 
     public function determineAmount(int $daysRented)
     {
-        $this->priceCalculator = new FixedForNDaysProportionalLater(1.5, 3, 1.5);
         return $this->priceCalculator->determineRentalAmount($daysRented);
     }
 

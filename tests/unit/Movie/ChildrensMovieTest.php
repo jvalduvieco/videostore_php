@@ -5,7 +5,7 @@ use VideoStore\Movie\ChildrensMovie;
 class ChildrensMovieTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \VideoStore\Movie\Movie
+     * @var \VideoStore\Movie\ChildrensMovie
      */
     private $movie;
 

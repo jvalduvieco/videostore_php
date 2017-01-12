@@ -10,12 +10,13 @@ class NewReleaseMovie extends Movie {
      */
     private $priceCalculator;
 
-    public function __constructor(string $title) {
+    public function __construct(string $title)
+    {
+        $this->priceCalculator = new Proportional(3);
         parent::__construct($title);
     }
 
     public function determineAmount(int $daysRented) {
-        $this->priceCalculator = new Proportional(3);
         return $this->priceCalculator->determineRentalAmount($daysRented);
     }
 

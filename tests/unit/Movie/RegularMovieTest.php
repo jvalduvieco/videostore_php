@@ -5,7 +5,7 @@ use VideoStore\Movie\RegularMovie;
 class RegularMovieTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \VideoStore\Movie\Movie
+     * @var \VideoStore\Movie\RegularMovie
      */
     private $movie;
 

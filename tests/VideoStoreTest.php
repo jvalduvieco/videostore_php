@@ -2,7 +2,6 @@
 namespace VideoStore;
 
 use VideoStore\Movie\ChildrensMovie;
-use VideoStore\Movie\Movie;
 use VideoStore\Movie\NewReleaseMovie;
 use VideoStore\Movie\RegularMovie;
 
@@ -12,27 +11,27 @@ class VideoStoreTest extends \PHPUnit_Framework_TestCase {
      */
     private $statement;
     /**
-     * @var Movie
+     * @var NewReleaseMovie
      */
     private $newRelease1;
     /**
-     * @var Movie
+     * @var NewReleaseMovie
      */
     private $newRelease2;
     /**
-     * @var Movie
+     * @var ChildrensMovie
      */
     private $childrens;
     /**
-     * @var Movie
+     * @var RegularMovie
      */
     private $regular1;
     /**
-     * @var Movie
+     * @var RegularMovie
      */
     private $regular2;
     /**
-     * @var Movie
+     * @var RegularMovie
      */
     private $regular3;
 
