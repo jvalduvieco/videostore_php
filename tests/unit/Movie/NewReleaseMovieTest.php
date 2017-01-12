@@ -26,7 +26,7 @@ class NewReleaseMovieTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $this->movie->determineFrequentRenterPoints(1));
     }
 
-    function testFrequentRenterPointsAreTwiIfRentedForMoreThanTwoDays()
+    function testFrequentRenterPointsAreTwoIfRentedForMoreThanTwoDays()
     {
         $this->assertEquals(2, $this->movie->determineFrequentRenterPoints(2));
         $this->assertEquals(2, $this->movie->determineFrequentRenterPoints(6));
