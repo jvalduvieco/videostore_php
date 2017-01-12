@@ -1,8 +1,16 @@
 <?php
 namespace VideoStore\Movie;
 
+use VideoStore\RentalPriceCalculator\FixedForNDaysProportionalLater;
+use VideoStore\RentalPriceCalculator\RentalPriceCalculator;
+
 class ChildrensMovie extends Movie
 {
+    /**
+     * @var RentalPriceCalculator
+     */
+    private $priceCalculator;
+
     public function __constructor(string $title)
     {
         parent::__construct($title);
@@ -10,11 +18,8 @@ class ChildrensMovie extends Movie
 
     public function determineAmount(int $daysRented)
     {
-        $thisAmount = 1.5;
-        if ($daysRented > 3)
-            $thisAmount += ($daysRented - 3) * 1.5;
-
-        return $thisAmount;
+        $this->priceCalculator = new FixedForNDaysProportionalLater(1.5, 3, 1.5);
+        return $this->priceCalculator->determineRentalAmount($daysRented);
     }
 
     public function determineFrequentRenterPoints(int $daysRented): int
