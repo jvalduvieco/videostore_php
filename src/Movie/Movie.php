@@ -1,6 +1,7 @@
 <?php
 namespace VideoStore\Movie;
 
+use InvalidArgumentException;
 use VideoStore\FrequentRenterPointsCalculator\FrequentRenterPointsCalculator;
 use VideoStore\RentalPriceCalculator\RentalPriceCalculator;
 
@@ -18,6 +19,9 @@ abstract class Movie
 
     public function __construct(string $title) {
         $this->title = $title;
+        if (is_null($this->priceCalculator)) throw new InvalidArgumentException("Movie Must have a PriceCalculator");
+        if (is_null($this->frequentRenterPointsCalculator))
+            throw new InvalidArgumentException("Movie Must have a FrequentRentalPointsCalculator");
     }
 
     public function getTitle (): string {
