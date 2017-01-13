@@ -1,8 +1,19 @@
 <?php
 namespace VideoStore\Movie;
 
+use VideoStore\FrequentRenterPointsCalculator\FrequentRenterPointsCalculator;
+use VideoStore\RentalPriceCalculator\RentalPriceCalculator;
+
 abstract class Movie
 {
+    /**
+     * @var FrequentRenterPointsCalculator
+     */
+    protected $frequentRenterPointsCalculator;
+    /**
+     * @var RentalPriceCalculator
+     */
+    protected $priceCalculator;
     private $title;
 
     public function __construct(string $title) {
@@ -10,10 +21,16 @@ abstract class Movie
     }
 
     public function getTitle (): string {
-		return $this->title;
-	}
+        return $this->title;
+    }
 
-  public abstract function determineAmount(int $daysRented);
+    public function determineAmount(int $daysRented)
+    {
+        return $this->priceCalculator->determineRentalAmount($daysRented);
+    }
 
-  public abstract function determineFrequentRenterPoints(int $daysRented): int;
+    public function determineFrequentRenterPoints(int $daysRented)
+    {
+        return $this->frequentRenterPointsCalculator->determineFrequentRenterPoints($daysRented);
+    }
 }
