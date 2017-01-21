@@ -1,17 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: joan.valduvieco
- * Date: 12/1/17
- * Time: 15:38
- */
 
 namespace VideoStore\FrequentRenterPointsCalculator;
 
 
 class FixedForNDaysFixedLater implements FrequentRenterPointsCalculator
 {
-
     private $secondFixedPoints;
     private $daysAtFirstPoints;
     private $firstFixedPoints;
