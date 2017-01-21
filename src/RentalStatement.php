@@ -1,6 +1,7 @@
 <?php
 namespace VideoStore;
 
+use VideoStore\MovieRental\MovieRenter;
 use VideoStore\RentalStatement\RentalStatementStringPrinter;
 
 /**
@@ -8,35 +9,45 @@ use VideoStore\RentalStatement\RentalStatementStringPrinter;
  * Adapter to use new code on legacy system
  **/
 class RentalStatement {
-    /**
-     * @var \VideoStore\RentalStatement\RentalStatement
-     */
+    /** @var \VideoStore\RentalStatement\RentalStatement */
     private $rentalStatement;
 
-    /**
-     * @var \VideoStore\RentalStatement\RentalStatementStringPrinter
-     */
+    /** @var \VideoStore\RentalStatement\RentalStatementStringPrinter */
     private $rentalStatementStringPrinter;
 
-    public function __construct(string $customerName) {
+    /** @var MovieRenter */
+    private $movieRenter;
+
+    /** @var  Rental[] */
+    private $rentals;
+
+    public function __construct(string $customerName)
+    {
         $this->rentalStatement = new RentalStatement\RentalStatement($customerName);
         $this->rentalStatementStringPrinter = new RentalStatementStringPrinter();
-
+        $this->movieRenter = new MovieRenter();
     }
 
-    public function addRental(Rental $rental) {
-        $this->rentalStatement->addRental($rental);
+    public function addRental(Rental $rental)
+    {
+        $this->rentalStatement->addRental(
+            $this->movieRenter->rentAMovie($rental->getMovie()->toNewMovie(), $rental->getDaysRented())
+        );
+        $this->rentals[] = $rental;
     }
 
-    public function getAmountOwed() {
+    public function getAmountOwed()
+    {
         return $this->rentalStatement->getAmountOwed();
     }
 
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->rentalStatement->getName();
     }
 
-    public function getFrequentRenterPoints(): int {
+    public function getFrequentRenterPoints(): int
+    {
         return $this->rentalStatement->getFrequentRenterPoints();
     }
 
@@ -45,7 +56,8 @@ class RentalStatement {
      */
     public function getRentals()
     {
-        return $this->rentalStatement->getRentals();
+        //return $this->rentalStatement->getRentals();
+        return $this->rentals;
     }
 
     public function makeRentalStatement()

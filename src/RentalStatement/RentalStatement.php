@@ -1,50 +1,64 @@
 <?php
 namespace VideoStore\RentalStatement;
 
-use VideoStore\Rental;
+use VideoStore\MovieRental\MovieRental;
 
 class RentalStatement
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $name;
-    /**
-     * @var Rental[]
-     */
+    /** @var MovieRental[] */
     private $rentals = array();
+    /** @var float */
     private $amount = 0;
+    /** @var float */
     private $frequentRenterPoints = 0;
 
+    /**
+     * RentalStatement constructor.
+     * @param string $customerName
+     */
     public function __construct(string $customerName)
     {
         $this->name = $customerName;
     }
 
-    public function addRental(Rental $rental)
+    /**
+     * @param MovieRental $rental
+     */
+    public function addRental(MovieRental $rental)
     {
         $this->rentals[] = $rental;
-        $this->amount += $rental->determineAmount();
-        $this->frequentRenterPoints += $rental->determineFrequentRenterPoints();
+        $this->amount += $rental->getRentalAmount();
+        $this->frequentRenterPoints += $rental->getFrequentRenterPoints();
     }
 
+    /**
+     * @return float
+     */
     public function getAmountOwed()
     {
         return $this->amount;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * @return int
+     */
     public function getFrequentRenterPoints(): int
     {
         return $this->frequentRenterPoints;
     }
 
     /**
-     * @return Rental[]
+     * @return MovieRental[]
      */
     public function getRentals()
     {

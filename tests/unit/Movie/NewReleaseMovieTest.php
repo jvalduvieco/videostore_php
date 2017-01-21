@@ -1,34 +1,42 @@
 <?php
+namespace VideoStore\Tests\Unit\Movie;
 
-use VideoStore\Movie\NewReleaseMovie;
+use VideoStore\Movie\Movie;
+use VideoStore\Movie\MovieCategory;
+use VideoStore\MovieRental\MovieRenter;
 
 class NewReleaseMovieTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \VideoStore\Movie\NewReleaseMovie
+     * @var \VideoStore\Movie\Movie
      */
     private $movie;
 
+    /**
+     * @var \VideoStore\MovieRental\MovieRenter
+     */
+    private $movieRenter;
+
     function SetUp()
     {
-        $this->movie = new NewReleaseMovie("title");
+        $this->movie = new Movie("title", MovieCategory::NewRelease());
+        $this->movieRenter = new MovieRenter();
     }
 
     function testNewReleaseMovieRentingCostsIsProportionalToThree()
     {
-
-        $this->assertEquals(3, $this->movie->determineAmount(1));
-        $this->assertEquals(6, $this->movie->determineAmount(2));
+        $this->assertEquals(3, $this->movieRenter->rentAMovie($this->movie, 1)->getRentalAmount());
+        $this->assertEquals(6, $this->movieRenter->rentAMovie($this->movie, 2)->getRentalAmount());
     }
 
     function testFrequentRenterPointsAreOneIfRentedForOneDay()
     {
-        $this->assertEquals(1, $this->movie->determineFrequentRenterPoints(1));
+        $this->assertEquals(1, $this->movieRenter->rentAMovie($this->movie, 1)->getFrequentRenterPoints());
     }
 
     function testFrequentRenterPointsAreTwoIfRentedForMoreThanTwoDays()
     {
-        $this->assertEquals(2, $this->movie->determineFrequentRenterPoints(2));
-        $this->assertEquals(2, $this->movie->determineFrequentRenterPoints(6));
+        $this->assertEquals(2, $this->movieRenter->rentAMovie($this->movie, 2)->getFrequentRenterPoints());
+        $this->assertEquals(2, $this->movieRenter->rentAMovie($this->movie, 6)->getFrequentRenterPoints());
     }
 }

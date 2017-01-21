@@ -1,7 +1,7 @@
 <?php
 namespace VideoStore\RentalStatement;
 
-use VideoStore\Rental;
+use VideoStore\MovieRental\MovieRental;
 
 class RentalStatementStringPrinter
 {
@@ -29,9 +29,9 @@ class RentalStatementStringPrinter
     }
 
 
-    private function makeRentalLine(Rental $rental): string
+    private function makeRentalLine(MovieRental $rental): string
     {
-        return "\t" . $rental->getTitle() . "\t" . number_format((float)$rental->determineAmount(), 1, '.', '') . "\n";
+        return "\t" . $rental->getMovie()->getTitle() . "\t" . number_format((float)$rental->getRentalAmount(), 1, '.', '') . "\n";
     }
 
     private function makeSummary(RentalStatement $rentalStatement): string

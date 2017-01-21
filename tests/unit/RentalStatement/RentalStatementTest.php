@@ -1,11 +1,9 @@
 <?php
 namespace VideoStore\Tests\Unit\RentalStatement;
 
-use VideoStore\Movie\ChildrensMovie;
 use VideoStore\Movie\Movie;
-use VideoStore\Movie\NewReleaseMovie;
-use VideoStore\Movie\RegularMovie;
-use VideoStore\Rental;
+use VideoStore\Movie\MovieCategory;
+use VideoStore\MovieRental\MovieRenter;
 use VideoStore\RentalStatement\RentalStatement;
 
 class RentalStatementTest extends \PHPUnit_Framework_TestCase
@@ -27,11 +25,14 @@ class RentalStatementTest extends \PHPUnit_Framework_TestCase
      */
     private $regular;
 
+    /** @var  MovieRenter */
+    private $movieRenter;
+
     public function testMultipleRentalStatement()
     {
-        $this->statement->addRental(new Rental($this->newRelease, 1));
-        $this->statement->addRental(new Rental($this->childrens, 2));
-        $this->statement->addRental(new Rental($this->regular, 3));
+        $this->statement->addRental($this->movieRenter->rentAMovie($this->newRelease, 1));
+        $this->statement->addRental($this->movieRenter->rentAMovie($this->childrens, 2));
+        $this->statement->addRental($this->movieRenter->rentAMovie($this->regular, 3));
 
         $this->assertEquals(8, $this->statement->getAmountOwed(), "Amount owed not do not match");
         $this->assertEquals(3, $this->statement->getFrequentRenterPoints(), "Frequent renter points do not match");
@@ -40,8 +41,9 @@ class RentalStatementTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->statement = new RentalStatement("Customer Name");
-        $this->newRelease = new NewReleaseMovie("New Release 1");
-        $this->childrens = new ChildrensMovie("Childrens");
-        $this->regular = new RegularMovie("Regular 3");
+        $this->newRelease = new Movie("New Release 1", MovieCategory::NewRelease());
+        $this->childrens = new Movie("Childrens", MovieCategory::Children());
+        $this->regular = new Movie("Regular 3", MovieCategory::Regular());
+        $this->movieRenter = new MovieRenter();
     }
 }

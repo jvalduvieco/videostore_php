@@ -1,10 +1,6 @@
 <?php
 namespace VideoStore;
 
-use VideoStore\Movie\ChildrensMovie;
-use VideoStore\Movie\NewReleaseMovie;
-use VideoStore\Movie\RegularMovie;
-
 class VideoStoreTest extends \PHPUnit_Framework_TestCase {
     /**
      * @var RentalStatement

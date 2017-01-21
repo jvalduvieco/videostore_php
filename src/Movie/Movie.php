@@ -1,40 +1,33 @@
 <?php
 namespace VideoStore\Movie;
 
-use InvalidArgumentException;
-use VideoStore\FrequentRenterPointsCalculator\FrequentRenterPointsCalculator;
-use VideoStore\RentalPriceCalculator\RentalPriceCalculator;
-
-abstract class Movie
+class Movie
 {
-    /**
-     * @var FrequentRenterPointsCalculator
-     */
-    protected $frequentRenterPointsCalculator;
-    /**
-     * @var RentalPriceCalculator
-     */
-    protected $priceCalculator;
+    /** @var string */
     private $title;
 
-    public function __construct(string $title) {
+    /** @var string */
+    private $category;
+
+    /**
+     * Movie constructor.
+     * @param string $title
+     * @param MovieCategory $category
+     */
+    public function __construct(string $title, MovieCategory $category)
+    {
         $this->title = $title;
-        if (is_null($this->priceCalculator)) throw new InvalidArgumentException("Movie Must have a PriceCalculator");
-        if (is_null($this->frequentRenterPointsCalculator))
-            throw new InvalidArgumentException("Movie Must have a FrequentRentalPointsCalculator");
+        $this->category = $category;
     }
 
+    /** @return string */
     public function getTitle (): string {
         return $this->title;
     }
 
-    public function determineAmount(int $daysRented)
+    /** @return MovieCategory */
+    public function getCategory(): MovieCategory
     {
-        return $this->priceCalculator->determineRentalAmount($daysRented);
-    }
-
-    public function determineFrequentRenterPoints(int $daysRented)
-    {
-        return $this->frequentRenterPointsCalculator->determineFrequentRenterPoints($daysRented);
+        return $this->category;
     }
 }

@@ -1,8 +1,10 @@
 <?php
 namespace VideoStore;
 
-use VideoStore\Movie\Movie;
-
+/**
+ * @deprecated
+ * Adapter to use new code on legacy system
+ **/
 class Rental
 {
     /**
@@ -20,11 +22,25 @@ class Rental
         return $this->movie->getTitle();
     }
 
+    public function getDaysRented(): int
+    {
+        return $this->daysRented;
+    }
+
     public function determineAmount() {
-        return $this->movie->determineAmount($this->daysRented);
+        throw new \Exception("Deprecated");
     }
 
     public function determineFrequentRenterPoints(): int  {
-        return $this->movie->determineFrequentRenterPoints($this->daysRented);
+        throw new \Exception("Deprecated");
     }
+
+    /**
+     * @return Movie
+     */
+    public function getMovie(): Movie
+    {
+        return $this->movie;
+    }
+
 }

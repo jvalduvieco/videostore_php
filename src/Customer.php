@@ -10,29 +10,29 @@ use VideoStore\RentalStatement\RentalStatementStringPrinter;
  **/
 class Customer
 {
-    /**
-     * @var \VideoStore\Customer
-     */
+    /** @var \VideoStore\Customer */
     private $customer;
-    /**
-     * @var \VideoStore\RentalStatement\RentalStatement
-     */
+    /** @var \VideoStore\RentalStatement\RentalStatement */
     private $rentalStatement;
 
-    /**
-     * @var \VideoStore\RentalStatement\RentalStatementStringPrinter
-     */
+    /** @var \VideoStore\RentalStatement\RentalStatementStringPrinter */
     private $rentalStatementStringPrinter;
+
+    /** @var MovieRental\MovieRenter */
+    private $movieRenter;
 
     public function __construct(string $name) {
         $this->customer = new Customer\Customer($name);
         $this->rentalStatement = new RentalStatement($name);
         $this->rentalStatementStringPrinter = new RentalStatementStringPrinter();
+        $this->movieRenter = new MovieRental\MovieRenter();
     }
 
     public function addRental(Rental $rental)
     {
-        $this->rentalStatement->addRental($rental);
+        $this->rentalStatement->addRental(
+            $this->movieRenter->rentAMovie($rental->getMovie()->toNewMovie(), $rental->getDaysRented())
+        );
     }
 
     public function getName(): string

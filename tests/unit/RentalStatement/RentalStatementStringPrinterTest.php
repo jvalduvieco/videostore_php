@@ -1,11 +1,9 @@
 <?php
 namespace VideoStore\Tests\Unit\RentalStatement;
 
-use VideoStore\Movie\ChildrensMovie;
 use VideoStore\Movie\Movie;
-use VideoStore\Movie\NewReleaseMovie;
-use VideoStore\Movie\RegularMovie;
-use VideoStore\Rental;
+use VideoStore\Movie\MovieCategory;
+use VideoStore\MovieRental\MovieRenter;
 use VideoStore\RentalStatement\RentalStatement;
 use VideoStore\RentalStatement\RentalStatementStringPrinter;
 
@@ -33,6 +31,8 @@ class RentalStatementStringPrinterTest extends \PHPUnit_Framework_TestCase
      */
     private $rentalStatementStringPrinter;
 
+    /** @var  MovieRenter */
+    private $movireRenter;
     public function testEmptyRentalStatementStringConversion()
     {
 
@@ -45,7 +45,7 @@ class RentalStatementStringPrinterTest extends \PHPUnit_Framework_TestCase
 
     public function testSingleRentalStatementStringConversion()
     {
-        $this->statement->addRental(new Rental($this->newRelease, 1));
+        $this->statement->addRental($this->movireRenter->rentAMovie($this->newRelease, 1));
 
         $this->assertEquals(
             "Rental Record for Customer Name\n" .
@@ -57,9 +57,9 @@ class RentalStatementStringPrinterTest extends \PHPUnit_Framework_TestCase
 
     public function testMultipleRentalStatementStringConversion()
     {
-        $this->statement->addRental(new Rental($this->newRelease, 1));
-        $this->statement->addRental(new Rental($this->childrens, 2));
-        $this->statement->addRental(new Rental($this->regular, 3));
+        $this->statement->addRental($this->movireRenter->rentAMovie($this->newRelease, 1));
+        $this->statement->addRental($this->movireRenter->rentAMovie($this->childrens, 2));
+        $this->statement->addRental($this->movireRenter->rentAMovie($this->regular, 3));
 
         $this->assertEquals(
             "Rental Record for Customer Name\n" .
@@ -74,9 +74,10 @@ class RentalStatementStringPrinterTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->statement = new RentalStatement("Customer Name");
-        $this->newRelease = new NewReleaseMovie("New Release 1");
-        $this->childrens = new ChildrensMovie("Childrens");
-        $this->regular = new RegularMovie("Regular 3");
+        $this->newRelease = new Movie("New Release 1", MovieCategory::NewRelease());
+        $this->childrens = new Movie("Childrens", MovieCategory::Children());
+        $this->regular = new Movie("Regular 3", MovieCategory::Regular());
+        $this->movireRenter = new MovieRenter();
         $this->rentalStatementStringPrinter = new RentalStatementStringPrinter();
     }
 }
