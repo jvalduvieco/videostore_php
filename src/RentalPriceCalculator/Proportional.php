@@ -7,7 +7,7 @@ class Proportional implements RentalPriceCalculator
     /** @var  float */
     private $pricePerDay;
 
-    function __construct($pricePerDay)
+    function __construct(float $pricePerDay)
     {
         $this->pricePerDay = $pricePerDay;
     }

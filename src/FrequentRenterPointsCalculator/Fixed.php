@@ -5,9 +5,10 @@ namespace VideoStore\FrequentRenterPointsCalculator;
 
 class Fixed implements FrequentRenterPointsCalculator
 {
+    /** @var float */
     private $frequentRenterPoints;
 
-    public function __construct(int $frequentRenterPoints)
+    public function __construct(float $frequentRenterPoints)
     {
         $this->frequentRenterPoints = $frequentRenterPoints;
     }

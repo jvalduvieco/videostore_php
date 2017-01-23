@@ -17,7 +17,8 @@ class RentalStatement
 
     /**
      * RentalStatement constructor.
-     * @param string|Customer $customerName
+     * @param Customer $customer
+     * @internal param Customer $customer
      */
     public function __construct(Customer $customer)
     {

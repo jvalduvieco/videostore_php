@@ -3,6 +3,7 @@ namespace VideoStore\Customer;
 
 class Customer
 {
+    /** @var string */
     private $name;
 
     public function __construct(string $name)
