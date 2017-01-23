@@ -13,7 +13,7 @@ class Customer
 
     /**
      * Get A Customer Entity by Name
-     * This will be eventually replaced by a repository
+     * @TODO This will be eventually replaced by a repository
      * @param string $name
      * @return Customer
      */
