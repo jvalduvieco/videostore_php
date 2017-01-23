@@ -20,7 +20,7 @@ class NewReleaseMovieTest extends \PHPUnit_Framework_TestCase
     function SetUp()
     {
         $this->movie = new Movie("title", MovieCategory::NewRelease());
-        $this->movieRenter = new MovieRenter();
+        $this->movieRenter = MovieRenter::createDefaultRenter();
     }
 
     function testNewReleaseMovieRentingCostsIsProportionalToThree()

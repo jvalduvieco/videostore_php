@@ -20,26 +20,33 @@ class MovieRenter
     private $calculateFrequentRenterPointsStrategies;
 
 
-    function __construct()
+    function __construct($calculateAmountSetup, $calculateFrequentRenterPointsSetup)
     {
-        $this->calculateAmountStrategies = array(
+        $this->calculateAmountStrategies = $calculateAmountSetup;
+        $this->calculateFrequentRenterPointsStrategies = $calculateFrequentRenterPointsSetup;
+    }
+
+    public static function createDefaultRenter()
+    {
+        $defaultAmountStrategies = array(
             MovieCategory::CHILDREN => new FixedForNDaysProportionalLater(1.5, 3, 1.5),
             MovieCategory::NEW_RELEASE => new Proportional(3),
             MovieCategory::REGULAR => new FixedForNDaysProportionalLater(2, 2, 1.5)
         );
-        $this->calculateFrequentRenterPointsStrategies = array(
+        $defaultFrequentRenterPointsStrategies = array(
             MovieCategory::CHILDREN => new Fixed(1),
             MovieCategory::NEW_RELEASE => new FixedForNDaysFixedLater(1, 1, 2),
             MovieCategory::REGULAR => new Fixed(1)
         );
-    }
 
+        return new self($defaultAmountStrategies, $defaultFrequentRenterPointsStrategies);
+    }
     /**
      * @param Movie $movie
      * @param int $daysRented
      * @return MovieRental
      */
-    function rentAMovie(Movie $movie, int $daysRented): MovieRental
+    public function rentAMovie(Movie $movie, int $daysRented): MovieRental
     {
         $amount = $this->calculateRentalAmount($movie, $daysRented);
         $frequentRenterPoints = $this->calculateFrequentRenterPoints($movie, $daysRented);

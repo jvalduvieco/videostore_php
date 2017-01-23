@@ -48,7 +48,7 @@ class RentalStatementTest extends \PHPUnit_Framework_TestCase
         $this->regular = new Movie("Regular 3", MovieCategory::Regular());
 
         $this->customer = new Customer("A customer");
-        $this->movieRenter = new MovieRenter();
+        $this->movieRenter = MovieRenter::createDefaultRenter();
 
         $this->statement = new RentalStatement($this->customer);
     }

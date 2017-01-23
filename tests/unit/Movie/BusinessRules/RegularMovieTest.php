@@ -18,7 +18,7 @@ class RegularMovieTest extends \PHPUnit_Framework_TestCase
 
     function SetUp()
     {
-        $this->movieRenter = new MovieRenter();
+        $this->movieRenter = MovieRenter::createDefaultRenter();
         $this->movie = new Movie("title", MovieCategory::Regular());
     }
 

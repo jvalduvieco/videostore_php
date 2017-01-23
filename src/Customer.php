@@ -1,6 +1,7 @@
 <?php
 namespace VideoStore;
 
+use VideoStore\MovieRental\MovieRenter;
 use VideoStore\RentalStatement\RentalStatement;
 use VideoStore\RentalStatement\RentalStatementStringPrinter;
 
@@ -18,14 +19,14 @@ class Customer
     /** @var \VideoStore\RentalStatement\RentalStatementStringPrinter */
     private $rentalStatementStringPrinter;
 
-    /** @var MovieRental\MovieRenter */
+    /** @var MovieRenter */
     private $movieRenter;
 
     public function __construct(string $name) {
         $this->customer = new Customer\Customer($name);
         $this->rentalStatement = new RentalStatement($this->customer);
         $this->rentalStatementStringPrinter = new RentalStatementStringPrinter();
-        $this->movieRenter = new MovieRental\MovieRenter();
+        $this->movieRenter = MovieRenter::createDefaultRenter();
     }
 
     public function addRental(Rental $rental)

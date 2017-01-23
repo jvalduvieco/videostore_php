@@ -29,7 +29,7 @@ class RentalStatement {
         $this->customer = Customer\Customer::findByName($customerName);
         $this->rentalStatement = new RentalStatement\RentalStatement($this->customer);
         $this->rentalStatementStringPrinter = new RentalStatementStringPrinter();
-        $this->movieRenter = new MovieRenter();
+        $this->movieRenter = MovieRenter::createDefaultRenter();
     }
 
     public function addRental(Rental $rental)
@@ -60,7 +60,6 @@ class RentalStatement {
      */
     public function getRentals()
     {
-        //return $this->rentalStatement->getRentals();
         return $this->rentals;
     }
 

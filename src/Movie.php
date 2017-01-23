@@ -20,7 +20,7 @@ abstract class Movie
     protected function __construct(string $title, MovieCategory $category)
     {
         $this->movie = new Movie\Movie($title, $category);
-        $this->movieRenter = new MovieRental\MovieRenter();
+        $this->movieRenter = MovieRenter::createDefaultRenter();
     }
 
     public function getTitle(): string
