@@ -21,9 +21,13 @@ class RentalStatement {
     /** @var  Rental[] */
     private $rentals;
 
+    /** @var Customer\Customer @var Customer */
+    private $customer;
+
     public function __construct(string $customerName)
     {
-        $this->rentalStatement = new RentalStatement\RentalStatement($customerName);
+        $this->customer = Customer\Customer::findByName($customerName);
+        $this->rentalStatement = new RentalStatement\RentalStatement($this->customer);
         $this->rentalStatementStringPrinter = new RentalStatementStringPrinter();
         $this->movieRenter = new MovieRenter();
     }

@@ -19,4 +19,9 @@ class CustomerTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals("Customer Name", $this->customer->getName());
     }
+
+    public function testICanFindACustomerByName()
+    {
+        $this->assertEquals("Customer Name", Customer::findByName("Customer Name")->getName());
+    }
 }

@@ -1,12 +1,13 @@
 <?php
 namespace VideoStore\RentalStatement;
 
+use VideoStore\Customer\Customer;
 use VideoStore\MovieRental\MovieRental;
 
 class RentalStatement
 {
-    /** @var string */
-    private $name;
+    /** @var Customer */
+    private $customer;
     /** @var MovieRental[] */
     private $rentals = array();
     /** @var float */
@@ -16,11 +17,11 @@ class RentalStatement
 
     /**
      * RentalStatement constructor.
-     * @param string $customerName
+     * @param string|Customer $customerName
      */
-    public function __construct(string $customerName)
+    public function __construct(Customer $customer)
     {
-        $this->name = $customerName;
+        $this->customer = $customer;
     }
 
     /**
@@ -46,7 +47,7 @@ class RentalStatement
      */
     public function getName(): string
     {
-        return $this->name;
+        return $this->customer->getName();
     }
 
     /**

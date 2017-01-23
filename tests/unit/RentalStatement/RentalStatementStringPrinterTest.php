@@ -1,6 +1,7 @@
 <?php
 namespace VideoStore\Tests\Unit\RentalStatement;
 
+use VideoStore\Customer\Customer;
 use VideoStore\Movie\Movie;
 use VideoStore\Movie\MovieCategory;
 use VideoStore\MovieRental\MovieRenter;
@@ -33,6 +34,10 @@ class RentalStatementStringPrinterTest extends \PHPUnit_Framework_TestCase
 
     /** @var  MovieRenter */
     private $movireRenter;
+
+    /** @var  Customer */
+    private $customer;
+
     public function testEmptyRentalStatementStringConversion()
     {
 
@@ -73,7 +78,8 @@ class RentalStatementStringPrinterTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->statement = new RentalStatement("Customer Name");
+        $this->customer = new Customer("Customer Name");
+        $this->statement = new RentalStatement($this->customer);
         $this->newRelease = new Movie("New Release 1", MovieCategory::NewRelease());
         $this->childrens = new Movie("Childrens", MovieCategory::Children());
         $this->regular = new Movie("Regular 3", MovieCategory::Regular());
