@@ -1,5 +1,11 @@
 <?php
-namespace VideoStore;
+namespace VideoStore\Tests\Integration\Legacy;
+
+use VideoStore\ChildrensMovie;
+use VideoStore\NewReleaseMovie;
+use VideoStore\RegularMovie;
+use VideoStore\Rental;
+use VideoStore\RentalStatement;
 
 class VideoStoreTest extends \PHPUnit_Framework_TestCase {
     /**

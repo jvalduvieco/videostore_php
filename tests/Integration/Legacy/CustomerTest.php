@@ -1,6 +1,9 @@
 <?php
+namespace VideoStore\Tests\Integration\Legacy;
 
-namespace VideoStore;
+use VideoStore\Customer;
+use VideoStore\RegularMovie;
+use VideoStore\Rental;
 
 class CustomerTest extends \PHPUnit_Framework_TestCase
 {
