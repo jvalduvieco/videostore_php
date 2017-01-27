@@ -3,7 +3,6 @@
 
 namespace VideoStore\Movie;
 
-
 class MovieCategory
 {
     const NEW_RELEASE = 1;

@@ -22,7 +22,8 @@ class Customer
     /** @var MovieRenter */
     private $movieRenter;
 
-    public function __construct(string $name) {
+    public function __construct(string $name)
+    {
         $this->customer = new Customer\Customer($name);
         $this->rentalStatement = new RentalStatement($this->customer);
         $this->rentalStatementStringPrinter = new RentalStatementStringPrinter();

@@ -8,7 +8,8 @@ use VideoStore\RentalStatement\RentalStatementStringPrinter;
  * @deprecated
  * Adapter to use new code on legacy system
  **/
-class RentalStatement {
+class RentalStatement
+{
     /** @var \VideoStore\RentalStatement\RentalStatement */
     private $rentalStatement;
 

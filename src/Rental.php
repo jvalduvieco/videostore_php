@@ -13,12 +13,14 @@ class Rental
     private $movie;
     private $daysRented;
 
-    public function __construct(Movie $movie, int $daysRented) {
+    public function __construct(Movie $movie, int $daysRented)
+    {
         $this->movie = $movie;
         $this->daysRented = $daysRented;
     }
 
-    public function getTitle(): string {
+    public function getTitle(): string
+    {
         return $this->movie->getTitle();
     }
 
@@ -27,11 +29,13 @@ class Rental
         return $this->daysRented;
     }
 
-    public function determineAmount() {
+    public function determineAmount()
+    {
         throw new \Exception("Deprecated");
     }
 
-    public function determineFrequentRenterPoints(): int  {
+    public function determineFrequentRenterPoints(): int
+    {
         throw new \Exception("Deprecated");
     }
 
@@ -42,5 +46,4 @@ class Rental
     {
         return $this->movie;
     }
-
 }

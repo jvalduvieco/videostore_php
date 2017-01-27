@@ -22,8 +22,9 @@ class RentalStatementStringPrinter
     {
         $rentalLines = "";
 
-        foreach ($rentalStatement->getrentals() as $rental)
+        foreach ($rentalStatement->getrentals() as $rental) {
             $rentalLines .= $this->makeRentalLine($rental);
+        }
 
         return $rentalLines;
     }
