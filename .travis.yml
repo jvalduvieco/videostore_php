@@ -8,10 +8,11 @@ php:
 
 before_install:
   - phpenv config-rm xdebug.ini
+  - mkdir -p build/logs
 
 install:
-  - composer self-update
-  - composer install --no-interaction --dev
+  - curl -s http://getcomposer.org/installer | php
+  - php ./composer.phar install --no-interaction --dev
 
 script:
   - ./vendor/bin/phpunit
