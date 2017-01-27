@@ -1,16 +1,20 @@
 <?php
 namespace VideoStore;
 
-class NewReleaseMovie extends Movie {
-    public function __constructor(string $title) {
-        parent::__construct($title);
-    }
+use VideoStore\Movie\MovieCategory;
 
-    public function determineAmount(int $daysRented) {
-        return $daysRented * 3.0;
-    }
+/**
+ * @deprecated
+ * Adapter to use new code on legacy system
+ **/
+class NewReleaseMovie extends Movie
+{
 
-    public function determineFrequentRenterPoints(int $daysRented): int  {
-        return ($daysRented > 1) ? 2 : 1;
+    /**
+     * NewReleaseMovie constructor.
+     */
+    public function __construct(string $title)
+    {
+        parent::__construct($title, MovieCategory::NewRelease());
     }
 }

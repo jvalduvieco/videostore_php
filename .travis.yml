@@ -1,0 +1,21 @@
+git:
+  depth: 1
+
+language: php
+
+php:
+  - '7.0'
+
+before_install:
+  - phpenv config-rm xdebug.ini
+
+install:
+  - composer self-update
+  - composer install --no-interaction --dev
+
+script:
+  - ./vendor/bin/phpunit
+
+notifications:
+    on_success: never
+    on_failure: always
