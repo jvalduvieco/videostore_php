@@ -1,19 +1,48 @@
 <?php
 namespace VideoStore\Tests\Acceptance\Behat\Context;
 
+use Assert\Assertion;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use VideoStore\Customer\Customer;
+use VideoStore\Movie\Movie;
+use VideoStore\Movie\MovieCategory;
+use VideoStore\MovieRental\MovieRenter;
+use VideoStore\RentalStatement\RentalStatement;
+use VideoStore\RentalStatement\RentalStatementStringPrinter;
 
 class PurchaseContext implements Context
 {
+    /** @var  Customer */
+    private $customer;
+
+    /** @var MovieRenter */
+    private $renter;
+
+    /** @var  RentalStatement */
+    private $statement;
+
+    /** @var RentalStatementStringPrinter */
+    private $statementStringPrinter;
+
+    /**
+     * PurchaseContext constructor.
+     */
+    public function __construct()
+    {
+        $this->renter = MovieRenter::createDefaultRenter();
+        $this->statementStringPrinter = new RentalStatementStringPrinter();
+    }
+
+
     /**
      * @Given /^I sign up as giving my name "([^"]*)"$/
      */
-    public function iSignUpAsGivingMyName($userName)
+    public function iSignUpAsGivingMyName($customerName)
     {
-        throw new PendingException();
+        $this->customer = new Customer($customerName);
     }
 
     /**
@@ -22,7 +51,12 @@ class PurchaseContext implements Context
      */
     public function thenIRentTheFollowingMovies(TableNode $table)
     {
-        throw new PendingException();
+        $this->statement = new RentalStatement($this->customer);
+        foreach ($table->getColumnsHash() as $movieToBeRented) {
+            $category = MovieCategory::fromString($movieToBeRented['type']);
+            $movie = new Movie($movieToBeRented['title'], $category);
+            $this->statement->addRental($this->renter->rentAMovie($movie, $movieToBeRented['days']));
+        }
     }
 
     /**
@@ -30,7 +64,6 @@ class PurchaseContext implements Context
      */
     public function iRequestMyRentalStatement()
     {
-        throw new PendingException();
     }
 
     /**
@@ -39,7 +72,9 @@ class PurchaseContext implements Context
      */
     public function iShoudSeeTheNextReport(PyStringNode $string)
     {
-        throw new PendingException();
+        $expected = $string->getRaw();
+        $tested = $this->statementStringPrinter->makeRentalStatement($this->statement);
+        Assertion::same($expected, $tested);
     }
 
     /**

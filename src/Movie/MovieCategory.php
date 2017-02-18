@@ -41,6 +41,14 @@ class MovieCategory
         return new self(self::REGULAR, "REGULAR");
     }
 
+    public static function fromString($id)
+    {
+        if (is_callable(array(__CLASS__, $id)) === false) {
+            throw new \RuntimeException("Movie Category Id not found: " . $id);
+        }
+        return self::$id();
+    }
+
     public function getId(): int
     {
         return $this->id;
