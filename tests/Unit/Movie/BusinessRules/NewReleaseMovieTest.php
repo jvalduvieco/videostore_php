@@ -19,7 +19,7 @@ class NewReleaseMovieTest extends \PHPUnit_Framework_TestCase
 
     function SetUp()
     {
-        $this->movie = new Movie("title", MovieCategory::NewRelease());
+        $this->movie = new Movie("title", MovieCategory::newRelease());
         $this->movieRenter = MovieRenter::createDefaultRenter();
     }
 

@@ -82,12 +82,12 @@ class VideoStoreTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->statement = new RentalStatement(Customer::findByName("Customer Name"));
-        $this->newRelease1 = new Movie("New Release 1", MovieCategory::NewRelease());
-        $this->newRelease2 = new Movie("New Release 2", MovieCategory::NewRelease());
-        $this->childrens = new Movie("Childrens", MovieCategory::Children());
-        $this->regular1 = new Movie("Regular 1", MovieCategory::Regular());
-        $this->regular2 = new Movie("Regular 2", MovieCategory::Regular());
-        $this->regular3 = new Movie("Regular 3", MovieCategory::Regular());
+        $this->newRelease1 = new Movie("New Release 1", MovieCategory::newRelease());
+        $this->newRelease2 = new Movie("New Release 2", MovieCategory::newRelease());
+        $this->childrens = new Movie("Childrens", MovieCategory::children());
+        $this->regular1 = new Movie("Regular 1", MovieCategory::regular());
+        $this->regular2 = new Movie("Regular 2", MovieCategory::regular());
+        $this->regular3 = new Movie("Regular 3", MovieCategory::regular());
         $this->renter = MovieRenter::createDefaultRenter();
         $this->statementStringPrinter = new RentalStatementStringPrinter();
     }

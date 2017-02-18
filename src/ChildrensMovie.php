@@ -14,6 +14,6 @@ class ChildrensMovie extends Movie
      */
     public function __construct(string $title)
     {
-        parent::__construct($title, MovieCategory::Children());
+        parent::__construct($title, MovieCategory::children());
     }
 }

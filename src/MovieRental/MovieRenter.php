@@ -1,7 +1,6 @@
 <?php
 namespace VideoStore\MovieRental;
 
-use Exception;
 use VideoStore\FrequentRenterPointsCalculator\Fixed;
 use VideoStore\FrequentRenterPointsCalculator\FixedForNDaysFixedLater;
 use VideoStore\FrequentRenterPointsCalculator\FrequentRenterPointsCalculator;
@@ -89,12 +88,4 @@ class MovieRenter
                 ->calculateFrequentRenterPointsStrategies[$movie->getCategory()->getId()]
                 ->determineFrequentRenterPoints($daysRented);
     }
-}
-
-class CanNotCalculateRentalAmount extends Exception
-{
-}
-
-class CanNotCalculateFrequentRenterPoints extends Exception
-{
 }

@@ -15,6 +15,6 @@ class NewReleaseMovie extends Movie
      */
     public function __construct(string $title)
     {
-        parent::__construct($title, MovieCategory::NewRelease());
+        parent::__construct($title, MovieCategory::newRelease());
     }
 }

@@ -50,6 +50,7 @@ class CodeQualityTool extends Application
             $this->checkCodeStyleWithCodeSniffer();
             $this->checkPhpMessDetection();
             $this->checkUnitTestsArePassing();
+            $this->runPhpMetrics();
         }
 
         $this->output->writeln('<info>Good job dude!</info>');
@@ -273,6 +274,18 @@ class CodeQualityTool extends Application
         if (!$phpunit->isSuccessful()) {
             throw new Exception('Fix the fucking unit tests!');
         }
+    }
+
+    private function runPhpMetrics()
+    {
+        $this->output->writeln('<info>Running PHP Metrics</info>');
+        $processBuilder = new ProcessBuilder(array('php', 'vendor/bin/phpmetrics',"--report-cli","src"));
+        $processBuilder->setWorkingDirectory(__DIR__ . '/../../../');
+        $processBuilder->setTimeout(3600);
+        $phpProcessMetrics = $processBuilder->getProcess();
+        $phpProcessMetrics->run(function ($type, $buffer) {
+            $this->output->write($buffer);
+        });
     }
 }
 

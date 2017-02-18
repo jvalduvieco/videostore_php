@@ -14,7 +14,7 @@ class MovieRenterTest extends \PHPUnit_Framework_TestCase
 {
     public function testICanRentAMovie()
     {
-        $movie = new Movie("A Movie", MovieCategory::Regular());
+        $movie = new Movie("A Movie", MovieCategory::regular());
         $defaultAmountStrategies = array(
             MovieCategory::REGULAR => new Proportional(24)
         );
