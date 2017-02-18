@@ -1,0 +1,9 @@
+default:
+  suites:
+    main:
+      filters:
+        tags: '~@skipped'
+      paths:
+        - "%paths.base%/tests/Acceptance/features"
+      contexts:
+        - VideoStore\Tests\Acceptance\Behat\Context\PurchaseContext
