@@ -43,9 +43,9 @@ class RentalStatementTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->newRelease = new Movie("New Release 1", MovieCategory::NewRelease());
-        $this->childrens = new Movie("Childrens", MovieCategory::Children());
-        $this->regular = new Movie("Regular 3", MovieCategory::Regular());
+        $this->newRelease = new Movie("New Release 1", MovieCategory::newRelease());
+        $this->childrens = new Movie("Childrens", MovieCategory::children());
+        $this->regular = new Movie("Regular 3", MovieCategory::regular());
 
         $this->customer = new Customer("A customer");
         $this->movieRenter = MovieRenter::createDefaultRenter();

@@ -80,9 +80,9 @@ class RentalStatementStringPrinterTest extends \PHPUnit_Framework_TestCase
     {
         $this->customer = new Customer("Customer Name");
         $this->statement = new RentalStatement($this->customer);
-        $this->newRelease = new Movie("New Release 1", MovieCategory::NewRelease());
-        $this->childrens = new Movie("Childrens", MovieCategory::Children());
-        $this->regular = new Movie("Regular 3", MovieCategory::Regular());
+        $this->newRelease = new Movie("New Release 1", MovieCategory::newRelease());
+        $this->childrens = new Movie("Childrens", MovieCategory::children());
+        $this->regular = new Movie("Regular 3", MovieCategory::regular());
         $this->movireRenter = MovieRenter::createDefaultRenter();
         $this->rentalStatementStringPrinter = new RentalStatementStringPrinter();
     }

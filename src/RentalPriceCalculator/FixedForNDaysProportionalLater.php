@@ -1,7 +1,6 @@
 <?php
 namespace VideoStore\RentalPriceCalculator;
 
-
 class FixedForNDaysProportionalLater implements RentalPriceCalculator
 {
     /** @var  float */
@@ -17,7 +16,7 @@ class FixedForNDaysProportionalLater implements RentalPriceCalculator
      * @param int $daysInFixedPrice
      * @param $pricePerDay
      */
-    function __construct($fixedPrice, int $daysInFixedPrice, $pricePerDay)
+    public function __construct($fixedPrice, int $daysInFixedPrice, $pricePerDay)
     {
         $this->fixedPrice = $fixedPrice;
         $this->daysInFixedPrice = $daysInFixedPrice;
@@ -31,8 +30,9 @@ class FixedForNDaysProportionalLater implements RentalPriceCalculator
     public function determineRentalAmount(int $daysRented)
     {
         $rentalAmount = $this->fixedPrice;
-        if ($daysRented > $this->daysInFixedPrice)
+        if ($daysRented > $this->daysInFixedPrice) {
             $rentalAmount += ($daysRented - $this->daysInFixedPrice) * $this->pricePerDay;
+        }
 
         return $rentalAmount;
     }

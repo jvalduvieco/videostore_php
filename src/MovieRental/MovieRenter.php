@@ -1,7 +1,6 @@
 <?php
 namespace VideoStore\MovieRental;
 
-use Exception;
 use VideoStore\FrequentRenterPointsCalculator\Fixed;
 use VideoStore\FrequentRenterPointsCalculator\FixedForNDaysFixedLater;
 use VideoStore\FrequentRenterPointsCalculator\FrequentRenterPointsCalculator;
@@ -20,7 +19,7 @@ class MovieRenter
     private $calculateFrequentRenterPointsStrategies;
 
 
-    function __construct($calculateAmountSetup, $calculateFrequentRenterPointsSetup)
+    public function __construct($calculateAmountSetup, $calculateFrequentRenterPointsSetup)
     {
         $this->calculateAmountStrategies = $calculateAmountSetup;
         $this->calculateFrequentRenterPointsStrategies = $calculateFrequentRenterPointsSetup;
@@ -62,8 +61,9 @@ class MovieRenter
      */
     private function calculateRentalAmount(Movie $movie, int $daysRented): float
     {
-        if (!isset($this->calculateAmountStrategies[$movie->getCategory()->getId()]))
+        if (!isset($this->calculateAmountStrategies[$movie->getCategory()->getId()])) {
             throw new CanNotCalculateRentalAmount();
+        }
 
         return
             $this
@@ -79,20 +79,13 @@ class MovieRenter
      */
     private function calculateFrequentRenterPoints($movie, $daysRented): float
     {
-        if (!isset($this->calculateFrequentRenterPointsStrategies[$movie->getCategory()->getId()]))
+        if (!isset($this->calculateFrequentRenterPointsStrategies[$movie->getCategory()->getId()])) {
             throw new CanNotCalculateFrequentRenterPoints();
+        }
 
         return
             $this
                 ->calculateFrequentRenterPointsStrategies[$movie->getCategory()->getId()]
                 ->determineFrequentRenterPoints($daysRented);
     }
-}
-
-class CanNotCalculateRentalAmount extends Exception
-{
-}
-
-class CanNotCalculateFrequentRenterPoints extends Exception
-{
 }

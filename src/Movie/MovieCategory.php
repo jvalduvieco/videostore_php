@@ -3,7 +3,6 @@
 
 namespace VideoStore\Movie;
 
-
 class MovieCategory
 {
     const NEW_RELEASE = 1;
@@ -27,17 +26,17 @@ class MovieCategory
         $this->description = $description;
     }
 
-    public static function NewRelease()
+    public static function newRelease()
     {
         return new self(self::NEW_RELEASE, "NEW RELEASE");
     }
 
-    public static function Children()
+    public static function children()
     {
         return new self(self::CHILDREN, "CHILDREN");
     }
 
-    public static function Regular()
+    public static function regular()
     {
         return new self(self::REGULAR, "REGULAR");
     }

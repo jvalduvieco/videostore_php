@@ -7,7 +7,7 @@ use VideoStore\RentalStatement\RentalStatementStringPrinter;
 
 /**
  * @deprecated
- * Adapter to use new code on legacy system
+ * Facade to use new code on legacy system
  **/
 class Customer
 {
@@ -22,13 +22,21 @@ class Customer
     /** @var MovieRenter */
     private $movieRenter;
 
-    public function __construct(string $name) {
+    /**
+     * Customer constructor.
+     * @param string $name
+     */
+    public function __construct(string $name)
+    {
         $this->customer = new Customer\Customer($name);
         $this->rentalStatement = new RentalStatement($this->customer);
         $this->rentalStatementStringPrinter = new RentalStatementStringPrinter();
         $this->movieRenter = MovieRenter::createDefaultRenter();
     }
 
+    /**
+     * @param Rental $rental
+     */
     public function addRental(Rental $rental)
     {
         $this->rentalStatement->addRental(
@@ -36,11 +44,17 @@ class Customer
         );
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->customer->getName();
     }
 
+    /**
+     * @return string
+     */
     public function statement(): string
     {
         return $this->rentalStatementStringPrinter->makeRentalStatement($this->rentalStatement);

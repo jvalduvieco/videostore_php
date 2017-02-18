@@ -6,9 +6,10 @@ use VideoStore\RentalStatement\RentalStatementStringPrinter;
 
 /**
  * @deprecated
- * Adapter to use new code on legacy system
+ * Facade to use new code on legacy system
  **/
-class RentalStatement {
+class RentalStatement
+{
     /** @var \VideoStore\RentalStatement\RentalStatement */
     private $rentalStatement;
 
@@ -24,6 +25,10 @@ class RentalStatement {
     /** @var Customer\Customer @var Customer */
     private $customer;
 
+    /**
+     * RentalStatement constructor.
+     * @param string $customerName
+     */
     public function __construct(string $customerName)
     {
         $this->customer = Customer\Customer::findByName($customerName);
@@ -32,6 +37,9 @@ class RentalStatement {
         $this->movieRenter = MovieRenter::createDefaultRenter();
     }
 
+    /**
+     * @param Rental $rental
+     */
     public function addRental(Rental $rental)
     {
         $this->rentalStatement->addRental(
@@ -40,16 +48,25 @@ class RentalStatement {
         $this->rentals[] = $rental;
     }
 
+    /**
+     * @return float
+     */
     public function getAmountOwed()
     {
         return $this->rentalStatement->getAmountOwed();
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->rentalStatement->getName();
     }
 
+    /**
+     * @return int
+     */
     public function getFrequentRenterPoints(): int
     {
         return $this->rentalStatement->getFrequentRenterPoints();
@@ -63,6 +80,9 @@ class RentalStatement {
         return $this->rentals;
     }
 
+    /**
+     * @return string
+     */
     public function makeRentalStatement()
     {
         return $this->rentalStatementStringPrinter->makeRentalStatement($this->rentalStatement);

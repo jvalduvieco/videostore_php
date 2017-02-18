@@ -2,7 +2,6 @@
 
 namespace VideoStore\FrequentRenterPointsCalculator;
 
-
 class Fixed implements FrequentRenterPointsCalculator
 {
     /** @var float */

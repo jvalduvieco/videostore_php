@@ -3,35 +3,56 @@ namespace VideoStore;
 
 /**
  * @deprecated
- * Adapter to use new code on legacy system
+ * Facade to use new code on legacy system
  **/
 class Rental
 {
-    /**
-     * @var Movie
-     */
+    /** @var Movie */
     private $movie;
+    /** @var int  */
     private $daysRented;
 
-    public function __construct(Movie $movie, int $daysRented) {
+    /**
+     * Rental constructor.
+     * @param Movie $movie
+     * @param int $daysRented
+     */
+    public function __construct(Movie $movie, int $daysRented)
+    {
         $this->movie = $movie;
         $this->daysRented = $daysRented;
     }
 
-    public function getTitle(): string {
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
         return $this->movie->getTitle();
     }
 
+    /**
+     * @return int
+     */
     public function getDaysRented(): int
     {
         return $this->daysRented;
     }
 
-    public function determineAmount() {
+    /**
+     * @throws \Exception
+     */
+    public function determineAmount()
+    {
         throw new \Exception("Deprecated");
     }
 
-    public function determineFrequentRenterPoints(): int  {
+    /**
+     * @return int
+     * @throws \Exception
+     */
+    public function determineFrequentRenterPoints(): int
+    {
         throw new \Exception("Deprecated");
     }
 
@@ -42,5 +63,4 @@ class Rental
     {
         return $this->movie;
     }
-
 }

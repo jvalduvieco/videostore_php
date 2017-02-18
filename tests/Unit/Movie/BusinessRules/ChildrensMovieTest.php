@@ -20,7 +20,7 @@ class ChildrensMovieTest extends \PHPUnit_Framework_TestCase
     function SetUp()
     {
         $this->movieRenter = MovieRenter::createDefaultRenter();
-        $this->movie = new Movie("title", MovieCategory::Children());
+        $this->movie = new Movie("title", MovieCategory::children());
     }
 
     function testIfRentedLessThanThreeDaysCostIsAlwaysOnePointFive()

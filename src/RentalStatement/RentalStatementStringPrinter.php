@@ -22,8 +22,9 @@ class RentalStatementStringPrinter
     {
         $rentalLines = "";
 
-        foreach ($rentalStatement->getrentals() as $rental)
+        foreach ($rentalStatement->getrentals() as $rental) {
             $rentalLines .= $this->makeRentalLine($rental);
+        }
 
         return $rentalLines;
     }
@@ -31,7 +32,11 @@ class RentalStatementStringPrinter
 
     private function makeRentalLine(MovieRental $rental): string
     {
-        return "\t" . $rental->getMovie()->getTitle() . "\t" . number_format((float)$rental->getRentalAmount(), 1, '.', '') . "\n";
+        return "\t" .
+            $rental->getMovie()->getTitle() .
+            "\t" .
+            number_format((float)$rental->getRentalAmount(), 1, '.', '') .
+            "\n";
     }
 
     private function makeSummary(RentalStatement $rentalStatement): string

@@ -2,7 +2,6 @@
 
 namespace VideoStore\FrequentRenterPointsCalculator;
 
-
 class FixedForNDaysFixedLater implements FrequentRenterPointsCalculator
 {
     /** @var  float */

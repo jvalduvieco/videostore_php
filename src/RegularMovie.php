@@ -16,6 +16,6 @@ class RegularMovie extends Movie
      */
     public function __construct(string $title)
     {
-        parent::__construct($title, MovieCategory::Regular());
+        parent::__construct($title, MovieCategory::regular());
     }
 }
